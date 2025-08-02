@@ -1,0 +1,46 @@
+on:
+  repository_dispatch:
+    types: [ proto-schema-updated ]
+
+jobs:
+  gen:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: "start"
+        run: echo "proto moved to ${{ github.event.client_payload.version }}"
+
+      - uses: actions/checkout@v4
+
+      - name: Clone contracts repo
+        run: |
+          git clone --depth=1 \
+            --branch "${{ github.event.client_payload.version }}" \
+            git@github.com:noxhalley/contracts.git proto
+
+      - name: Generate code Go
+        working-directory: proto
+        run: |
+          protoc \
+            -I. \
+            --go_out ../gen/go \
+            --go-grpc_out ../gen/go \
+            *.proto
+
+      - name: Copy generated into repo and commit
+        run: |
+          rm -rf proto_gen && \
+          mv ../gen/go proto_gen
+
+      - run: |
+          git config user.name "CI Bot" &&
+          git config user.email "ci@noxhalley.com" &&
+          git add proto_gen &&
+          git commit -m "Update proto-gen from ${{ github.event.client_payload.version }}" ||
+          echo "No changes"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6
+        with:
+          github_token: ${{ secrets.K2_PAT }}
