@@ -20,19 +20,17 @@ jobs:
             --branch "${{ github.event.client_payload.version }}" \
             https://x-access-token:${{ secrets.K2_PAT }}@github.com/noxhalley/contracts.git proto
 
-      - name: Generate code Go
-        working-directory: proto
+      - name: Setup Buf
         run: |
-          protoc \
-            -I. \
-            --go_out ../gen/go \
-            --go-grpc_out ../gen/go \
-            *.proto
+          curl -sSL https://github.com/bufbuild/buf/releases/latest/download/buf-Linux-x86_64 -o /usr/local/bin/buf && chmod +x /usr/local/bin/buf
+
+      - name: Generate code Go
+        run: buf generate
 
       - name: Copy generated into repo and commit
         run: |
           rm -rf proto_gen && \
-          mv ../gen/go proto_gen
+          mv ./gen/go proto_gen
 
       - run: |
           git config user.name "CI Bot" &&
