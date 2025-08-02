@@ -27,12 +27,13 @@ jobs:
       - name: Generate code Go
         run: buf generate
 
-      - name: Copy generated into repo and commit
+      - name: Copy generated into repo
         run: |
           rm -rf proto_gen && \
           mv ./gen/go proto_gen
 
-      - run: |
+      - name: Commit changes
+        run: |
           git config user.name "CI Bot" &&
           git config user.email "ci@noxhalley.com" &&
           git add proto_gen &&
@@ -40,6 +41,8 @@ jobs:
           echo "No changes"
 
       - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
+        uses: ad-m/github-push-action@v0.8.0
         with:
           github_token: ${{ secrets.K2_PAT }}
+          branch: ${{ github.event.client_payload.version }}
+          force_with_lease: true
