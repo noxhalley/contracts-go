@@ -18,7 +18,7 @@ jobs:
         run: |
           git clone --depth=1 \
             --branch "${{ github.event.client_payload.version }}" \
-            git@github.com:noxhalley/contracts.git proto
+            https://x-access-token:${{ secrets.K2_PAT }}@github.com/noxhalley/contracts.git proto
 
       - name: Generate code Go
         working-directory: proto
