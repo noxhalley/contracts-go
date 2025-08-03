@@ -33,7 +33,7 @@ jobs:
           mv ./gen/go proto_gen
 
       - name: Commit and push changes
-        run: ./scripts/push.sh
+        run: sh ./scripts/push.sh
         env:
           VERSION: ${{ github.event.client_payload.version }}
           GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
