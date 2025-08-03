@@ -33,18 +33,3 @@ jobs:
           VERSION: ${{ github.event.client_payload.version }}
           GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
           GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
-
-      # - name: Commit changes
-      #   run: |
-      #     git config user.name "CI Bot" &&
-      #     git config user.email "ci@noxhalley.com" &&
-      #     git add proto_gen &&
-      #     git commit -m "Update proto-gen from ${{ github.event.client_payload.version }}" ||
-      #     echo "No changes"
-      #
-      # - name: Push changes
-      #   uses: ad-m/github-push-action@v0.8.0
-      #   with:
-      #     github_token: ${{ secrets.K2_PAT }}
-      #     tags: ${{ github.event.client_payload.version }}
-      #     force_with_lease: true

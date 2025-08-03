@@ -6,10 +6,9 @@ rm -rf proto_gen && mv ./gen/go proto_gen
 git config --global user.name "${GIT_USER_NAME}"
 git config --global user.email "${GIT_USER_EMAIL}"
 
-git add proto_gen
-git diff --quite --exit-code || git commit -m "Update from ${VERSION}"
+git checkout -b "${VERSION}" main
 
-git tag -d "${VERSION}" || true
-git tag "${VERSION}"
+git add proto_gen
+git diff --quiet --exit-code || git commit -m "Update from ${VERSION}"
 
 git push origin "$VERSION"
