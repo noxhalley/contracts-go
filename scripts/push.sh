@@ -10,4 +10,4 @@ git add proto_gen
 git diff --quiet --exit-code || git commit -m "Update from ${VERSION}"
 
 git tag -a $VERSION -m "Version ${VERSION}"
-git push --follow-tags origin HEAD
+git push --follow-tags origin main
