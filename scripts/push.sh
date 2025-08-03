@@ -11,3 +11,5 @@ git diff --quite --exit-code || git commit -m "Update from ${VERSION}"
 
 git tag -d "${VERSION}" || true
 git tag "${VERSION}"
+
+git push origin "$VERSION"
