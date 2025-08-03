@@ -27,11 +27,6 @@ jobs:
       - name: Generate code Go
         run: buf generate
 
-      - name: Copy generated into repo
-        run: |
-          rm -rf proto_gen && \
-          mv ./gen/go proto_gen
-
       - name: Commit and push changes
         run: ./scripts/push.sh
         env:
