@@ -9,6 +9,7 @@ package bookv1
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -161,20 +162,67 @@ func (x *GetBookResponse) GetBook() *Book {
 	return nil
 }
 
+type ListBooksResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Books         []*Book                `protobuf:"bytes,1,rep,name=books,proto3" json:"books,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListBooksResponse) Reset() {
+	*x = ListBooksResponse{}
+	mi := &file_book_v1_book_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListBooksResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListBooksResponse) ProtoMessage() {}
+
+func (x *ListBooksResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_book_v1_book_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListBooksResponse.ProtoReflect.Descriptor instead.
+func (*ListBooksResponse) Descriptor() ([]byte, []int) {
+	return file_book_v1_book_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *ListBooksResponse) GetBooks() []*Book {
+	if x != nil {
+		return x.Books
+	}
+	return nil
+}
+
 var File_book_v1_book_proto protoreflect.FileDescriptor
 
 const file_book_v1_book_proto_rawDesc = "" +
 	"\n" +
-	"\x12book/v1/book.proto\x12\abook.v1\"*\n" +
+	"\x12book/v1/book.proto\x12\abook.v1\x1a\x1bgoogle/protobuf/empty.proto\"*\n" +
 	"\x04Book\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\" \n" +
 	"\x0eGetBookRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\"4\n" +
 	"\x0fGetBookResponse\x12!\n" +
-	"\x04book\x18\x01 \x01(\v2\r.book.v1.BookR\x04book2M\n" +
+	"\x04book\x18\x01 \x01(\v2\r.book.v1.BookR\x04book\"8\n" +
+	"\x11ListBooksResponse\x12#\n" +
+	"\x05books\x18\x01 \x03(\v2\r.book.v1.BookR\x05books2\x90\x01\n" +
 	"\vBookService\x12>\n" +
-	"\aGetBook\x12\x17.book.v1.GetBookRequest\x1a\x18.book.v1.GetBookResponse\"\x00BW\n" +
+	"\aGetBook\x12\x17.book.v1.GetBookRequest\x1a\x18.book.v1.GetBookResponse\"\x00\x12A\n" +
+	"\tListBooks\x12\x16.google.protobuf.Empty\x1a\x1a.book.v1.ListBooksResponse\"\x00BW\n" +
 	"\x1forg.noxhalley.contracts.book.v1Z4github.com/noxhalley/contracts/gen/go/book/v1;bookv1b\x06proto3"
 
 var (
@@ -189,21 +237,26 @@ func file_book_v1_book_proto_rawDescGZIP() []byte {
 	return file_book_v1_book_proto_rawDescData
 }
 
-var file_book_v1_book_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_book_v1_book_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_book_v1_book_proto_goTypes = []any{
-	(*Book)(nil),            // 0: book.v1.Book
-	(*GetBookRequest)(nil),  // 1: book.v1.GetBookRequest
-	(*GetBookResponse)(nil), // 2: book.v1.GetBookResponse
+	(*Book)(nil),              // 0: book.v1.Book
+	(*GetBookRequest)(nil),    // 1: book.v1.GetBookRequest
+	(*GetBookResponse)(nil),   // 2: book.v1.GetBookResponse
+	(*ListBooksResponse)(nil), // 3: book.v1.ListBooksResponse
+	(*emptypb.Empty)(nil),     // 4: google.protobuf.Empty
 }
 var file_book_v1_book_proto_depIdxs = []int32{
 	0, // 0: book.v1.GetBookResponse.book:type_name -> book.v1.Book
-	1, // 1: book.v1.BookService.GetBook:input_type -> book.v1.GetBookRequest
-	2, // 2: book.v1.BookService.GetBook:output_type -> book.v1.GetBookResponse
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0, // 1: book.v1.ListBooksResponse.books:type_name -> book.v1.Book
+	1, // 2: book.v1.BookService.GetBook:input_type -> book.v1.GetBookRequest
+	4, // 3: book.v1.BookService.ListBooks:input_type -> google.protobuf.Empty
+	2, // 4: book.v1.BookService.GetBook:output_type -> book.v1.GetBookResponse
+	3, // 5: book.v1.BookService.ListBooks:output_type -> book.v1.ListBooksResponse
+	4, // [4:6] is the sub-list for method output_type
+	2, // [2:4] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_book_v1_book_proto_init() }
@@ -217,7 +270,7 @@ func file_book_v1_book_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_book_v1_book_proto_rawDesc), len(file_book_v1_book_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
