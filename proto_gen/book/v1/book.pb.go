@@ -26,6 +26,7 @@ type Book struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Publisher     string                 `protobuf:"bytes,3,opt,name=publisher,proto3" json:"publisher,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -70,6 +71,13 @@ func (x *Book) GetId() int32 {
 func (x *Book) GetName() string {
 	if x != nil {
 		return x.Name
+	}
+	return ""
+}
+
+func (x *Book) GetPublisher() string {
+	if x != nil {
+		return x.Publisher
 	}
 	return ""
 }
@@ -210,10 +218,11 @@ var File_book_v1_book_proto protoreflect.FileDescriptor
 
 const file_book_v1_book_proto_rawDesc = "" +
 	"\n" +
-	"\x12book/v1/book.proto\x12\abook.v1\x1a\x1bgoogle/protobuf/empty.proto\"*\n" +
+	"\x12book/v1/book.proto\x12\abook.v1\x1a\x1bgoogle/protobuf/empty.proto\"H\n" +
 	"\x04Book\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\" \n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1c\n" +
+	"\tpublisher\x18\x03 \x01(\tR\tpublisher\" \n" +
 	"\x0eGetBookRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\"4\n" +
 	"\x0fGetBookResponse\x12!\n" +
